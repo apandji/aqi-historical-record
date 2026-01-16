@@ -1,0 +1,220 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: #fff;
+    min-height: 100vh;
+    padding: 20px;
+    color: #000;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 1.5em;
+    font-weight: normal;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.loading, .error {
+    padding: 20px;
+    color: #666;
+}
+
+.error {
+    color: #c00;
+}
+
+.location-controls {
+    margin-bottom: 20px;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#location-search {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    font-size: 0.9em;
+    font-family: inherit;
+}
+
+#location-search:focus {
+    outline: none;
+    border-color: #999;
+}
+
+#search-button,
+#use-location-button {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    background: #fff;
+    font-size: 0.85em;
+    font-family: inherit;
+    cursor: pointer;
+    color: #000;
+}
+
+#search-button:hover,
+#use-location-button:hover {
+    background: #f5f5f5;
+}
+
+.location-info {
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.data-source {
+    margin-top: 8px;
+    font-size: 0.85em;
+    color: #999;
+    font-style: italic;
+}
+
+.data-note {
+    margin-bottom: 30px;
+    font-size: 0.85em;
+    color: #666;
+}
+
+.data-note strong {
+    font-weight: normal;
+}
+
+.comparison-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.metric-card {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.metric-card:last-child {
+    border-bottom: none;
+}
+
+.metric-card h3 {
+    font-size: 0.9em;
+    font-weight: normal;
+    margin-bottom: 12px;
+    color: #666;
+}
+
+.comparison-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+}
+
+.value {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.value .label {
+    font-size: 0.75em;
+    color: #999;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.value .number {
+    font-size: 1.5em;
+    font-weight: normal;
+    color: #000;
+}
+
+.value .tertiary {
+    font-size: 0.7em;
+    color: #999;
+    margin-top: 6px;
+    font-style: italic;
+}
+
+.value .tertiary .national-label,
+.value .tertiary .global-label {
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.value .tertiary .delta {
+    margin-left: 4px;
+    font-style: normal;
+}
+
+.value .tertiary .national-avg-value {
+    font-weight: 500;
+}
+
+.value .tertiary .national-avg-value.better {
+    color: #0a0;
+}
+
+.value .tertiary .national-avg-value.worse {
+    color: #c00;
+}
+
+.value .tertiary .national-avg-value.neutral {
+    color: #999;
+}
+
+.change {
+    text-align: left;
+    font-size: 0.85em;
+    color: #666;
+}
+
+.change.positive {
+    color: #0a0;
+}
+
+.change.negative {
+    color: #c00;
+}
+
+.change.neutral {
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .comparison-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .change {
+        margin-top: 8px;
+    }
+}

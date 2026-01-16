@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality: Today vs 2023</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Air Quality Comparison</h1>
+            <p class="subtitle"><span id="historical-year">Jan 16, 2023</span> vs. <span id="today-year">Jan 16, 2026</span></p>
+        </header>
+
+        <div class="location-controls">
+            <div class="search-box">
+                <input type="text" id="location-search" placeholder="Search location (e.g., St. Louis, Tokyo, London)" />
+                <button id="search-button">Search</button>
+                <button id="use-location-button">Use My Location</button>
+            </div>
+        </div>
+
+        <div id="loading" class="loading">
+            <p>Getting your location...</p>
+        </div>
+
+        <div id="error" class="error" style="display: none;">
+            <p id="error-message"></p>
+        </div>
+
+        <div id="content" style="display: none;">
+            <div class="location-info">
+                <p id="location-text"></p>
+                <p id="data-source" class="data-source">Data source: Unknown</p>
+            </div>
+
+            <div class="data-note">
+                <p><strong>Note:</strong> Historical air quality data is available via OpenMeteo API. For European locations, data goes back to 2023. For US and global locations, data is available from 2022-2023 onwards. Data availability may vary by location.</p>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="metric-card">
+                    <h3>Overall AQI</h3>
+                    <div class="comparison-row">
+                        <div class="value historical">
+                            <span class="label"><span id="historical-date-label">Jan 16, 2023</span></span>
+                            <span class="number" id="aqi-2023"></span>
+                            <span class="tertiary"><span class="national-label">National Avg</span>: <span id="aqi-national-historical">—</span> <span id="aqi-delta-historical" class="delta"></span></span>
+                        </div>
+                        <div class="value today">
+                            <span class="label"><span id="today-date-label">Jan 16, 2026</span></span>
+                            <span class="number" id="aqi-today"></span>
+                            <span class="tertiary"><span class="national-label">National Avg</span>: <span id="aqi-national-today">—</span> <span id="aqi-delta-today" class="delta"></span></span>
+                        </div>
+                        <div class="change" id="aqi-change"></div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3>PM2.5 (μg/m³)</h3>
+                    <div class="comparison-row">
+                        <div class="value historical">
+                            <span class="label"><span class="historical-date-label">Jan 16, 2023</span></span>
+                            <span class="number" id="pm25-2023"></span>
+                            <span class="tertiary"><span class="national-label">National Avg</span>: <span id="pm25-national-historical">—</span> <span id="pm25-delta-historical" class="delta"></span></span>
+                        </div>
+                        <div class="value today">
+                            <span class="label"><span class="today-date-label">Jan 16, 2026</span></span>
+                            <span class="number" id="pm25-today"></span>
+                            <span class="tertiary"><span class="national-label">National Avg</span>: <span id="pm25-national-today">—</span> <span id="pm25-delta-today" class="delta"></span></span>
+                        </div>
+                        <div class="change" id="pm25-change"></div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3>PM10 (μg/m³)</h3>
+                    <div class="comparison-row">
+                        <div class="value historical">
+                            <span class="label"><span class="historical-date-label">Jan 16, 2023</span></span>
+                            <span class="number" id="pm10-2023"></span>
+                            <span class="tertiary"><span class="national-label">National Avg</span>: <span id="pm10-national-historical">—</span> <span id="pm10-delta-historical" class="delta"></span></span>
+                        </div>
+                        <div class="value today">
+                            <span class="label"><span class="today-date-label">Jan 16, 2026</span></span>
+                            <span class="number" id="pm10-today"></span>
+                            <span class="tertiary"><span class="national-label">National Avg</span>: <span id="pm10-national-today">—</span> <span id="pm10-delta-today" class="delta"></span></span>
+                        </div>
+                        <div class="change" id="pm10-change"></div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3>CO (μg/m³)</h3>
+                    <div class="comparison-row">
+                        <div class="value historical">
+                            <span class="label"><span class="historical-date-label">Jan 16, 2023</span></span>
+                            <span class="number" id="co-2023"></span>
+                            <span class="tertiary"><span class="national-label">National Avg</span>: <span id="co-national-historical">—</span> <span id="co-delta-historical" class="delta"></span></span>
+                        </div>
+                        <div class="value today">
+                            <span class="label"><span class="today-date-label">Jan 16, 2026</span></span>
+                            <span class="number" id="co-today"></span>
+                            <span class="tertiary"><span class="national-label">National Avg</span>: <span id="co-national-today">—</span> <span id="co-delta-today" class="delta"></span></span>
+                        </div>
+                        <div class="change" id="co-change"></div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3>NO₂ (μg/m³)</h3>
+                    <div class="comparison-row">
+                        <div class="value historical">
+                            <span class="label"><span class="historical-date-label">Jan 16, 2023</span></span>
+                            <span class="number" id="no2-2023"></span>
+                            <span class="tertiary"><span class="national-label">National Avg</span>: <span id="no2-national-historical">—</span> <span id="no2-delta-historical" class="delta"></span></span>
+                        </div>
+                        <div class="value today">
+                            <span class="label"><span class="today-date-label">Jan 16, 2026</span></span>
+                            <span class="number" id="no2-today"></span>
+                            <span class="tertiary"><span class="national-label">National Avg</span>: <span id="no2-national-today">—</span> <span id="no2-delta-today" class="delta"></span></span>
+                        </div>
+                        <div class="change" id="no2-change"></div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3>O₃ (μg/m³)</h3>
+                    <div class="comparison-row">
+                        <div class="value historical">
+                            <span class="label"><span class="historical-date-label">Jan 16, 2023</span></span>
+                            <span class="number" id="o3-2023"></span>
+                            <span class="tertiary"><span class="national-label">National Avg</span>: <span id="o3-national-historical">—</span> <span id="o3-delta-historical" class="delta"></span></span>
+                        </div>
+                        <div class="value today">
+                            <span class="label"><span class="today-date-label">Jan 16, 2026</span></span>
+                            <span class="number" id="o3-today"></span>
+                            <span class="tertiary"><span class="national-label">National Avg</span>: <span id="o3-national-today">—</span> <span id="o3-delta-today" class="delta"></span></span>
+                        </div>
+                        <div class="change" id="o3-change"></div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3>SO₂ (μg/m³)</h3>
+                    <div class="comparison-row">
+                        <div class="value historical">
+                            <span class="label"><span class="historical-date-label">Jan 16, 2023</span></span>
+                            <span class="number" id="so2-2023"></span>
+                            <span class="tertiary"><span class="national-label">National Avg</span>: <span id="so2-national-historical">—</span> <span id="so2-delta-historical" class="delta"></span></span>
+                        </div>
+                        <div class="value today">
+                            <span class="label"><span class="today-date-label">Jan 16, 2026</span></span>
+                            <span class="number" id="so2-today"></span>
+                            <span class="tertiary"><span class="national-label">National Avg</span>: <span id="so2-national-today">—</span> <span id="so2-delta-today" class="delta"></span></span>
+                        </div>
+                        <div class="change" id="so2-change"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
